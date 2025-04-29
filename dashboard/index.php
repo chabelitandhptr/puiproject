@@ -1,9 +1,12 @@
 <?php
 require_once '../layout/_top.php';
 require_once '../helper/connection.php';
+<<<<<<< HEAD
 
 $sql = "SELECT * FROM influencers";
 $result = $connection->query($sql);
+=======
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
 ?>
 
 <section class="section">
@@ -11,6 +14,7 @@ $result = $connection->query($sql);
     <h1>Dashboard</h1>
   </div>
 
+<<<<<<< HEAD
   <div class="section-body">
     <div class="row">
       <?php while ($row = $result->fetch_assoc()) : ?>
@@ -124,3 +128,8 @@ $result = $connection->query($sql);
 require_once '../layout/_bottom.php';
 $connection->close();
 ?>
+=======
+<?php
+require_once '../layout/_bottom.php';
+?>
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e

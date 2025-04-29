@@ -1,55 +1,28 @@
-<?php
-require_once 'helper/connection.php';
 session_start();
+$email = mysqli_real_escape_string($conn, $_POST['email']);
+$password = $_POST['password'];
 
-if (isset($_POST['submit'])) {
-    $username = mysqli_real_escape_string($connection, $_POST['username']);
-    $password = $_POST['password'];
+$query = "SELECT * FROM users WHERE email='$email'";
+$result = mysqli_query($conn, $query);
+$user = mysqli_fetch_assoc($result);
 
-<<<<<<< HEAD
-    // Ambil user dan rolenya
-    $sql = "SELECT login.*, users.role 
-            FROM login 
-            JOIN users ON login.user_id = users.id 
-            WHERE login.username='$username' 
-            LIMIT 1";
-    
-    $result = mysqli_query($connection, $sql);
-    $row = mysqli_fetch_assoc($result);
+if ($user && password_verify($password, $user['password'])) {
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['username'] = $user['username'];
+    $_SESSION['role'] = $user['role'];
 
-    if ($row && password_verify($password, $row['password'])) {
-        $allowed_roles = ['influencer', 'brand']; // Role yang diizinkan
-        if (in_array($row['role'], $allowed_roles)) {
-            $_SESSION['login'] = $row;
-            header('Location: index.php');
-            exit();
-        } else {
-            echo "<script>alert('Login gagal! Role tidak diizinkan untuk login.'); window.location='login.php';</script>";
-        }
-=======
-    // Ambil data user berdasarkan username
-    $sql = "SELECT * FROM login WHERE username='$username' LIMIT 1";
-    $result = mysqli_query($connection, $sql);
-    $row = mysqli_fetch_assoc($result);
-
-    // Cek apakah username ditemukan dan password cocok
-    if ($row && password_verify($password, $row['password'])) {
-        $_SESSION['login'] = $row; // Simpan data user ke session
-        header('Location: index.php');
-        exit(); // Penting agar tidak ada kode lain yang dieksekusi
->>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
+    if ($user['role'] == 'umkm') {
+        header("Location: dashboard_umkm.php");
     } else {
-        echo "<script>alert('Login gagal! Username atau password salah.'); window.location='login.php';</script>";
+        header("Location: dashboard_influencer.php");
     }
+    exit();
+} else {
+    echo "Login gagal. Periksa email dan password!";
 }
+
 ?>
 
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,17 +79,6 @@ if (isset($_POST['submit'])) {
                   </div>
 
                   <div class="form-group">
-                    <label for="role">Role</label>
-                    <select id="role" name="role" class="form-control" required>
-                      <option value="umkm">UMKM</option>
-                      <option value="influencer">Influencer</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Mohon pilih role
-                    </div>
-                  </div>
-
-                  <div class="form-group">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
                       <label class="custom-control-label" for="remember-me">Ingat Saya</label>
@@ -129,14 +91,11 @@ if (isset($_POST['submit'])) {
                     </button>
                   </div>
                 </form>
-                <div class="text-center">
-                  <p>Belum punya akun? <a href="register.php">Daftar di sini</a></p>
-                </div>
 
               </div>
             </div>
             <div class="simple-footer">
-              Copyright &copy; Heri Hermawan 2021
+              Copyright &copy; Chabelita 2025
             </div>
           </div>
         </div>

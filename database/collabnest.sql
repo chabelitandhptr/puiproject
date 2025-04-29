@@ -1,4 +1,5 @@
 -- phpMyAdmin SQL Dump
+<<<<<<< HEAD
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
@@ -6,12 +7,24 @@
 -- Generation Time: Mar 12, 2025 at 01:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
+=======
+-- version 5.0.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Feb 02, 2021 at 01:41 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.14
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -24,6 +37,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+<<<<<<< HEAD
 -- Table structure for table `influencers`
 --
 
@@ -43,11 +57,14 @@ CREATE TABLE `influencers` (
 -- --------------------------------------------------------
 
 --
+=======
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
 -- Table structure for table `login`
 --
 
 CREATE TABLE `login` (
   `id` int(11) NOT NULL,
+<<<<<<< HEAD
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -114,11 +131,24 @@ ALTER TABLE `influencers`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
+=======
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`id`, `username`, `password`) VALUES
+(1, 'admin', '123456');
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
 
 --
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
+<<<<<<< HEAD
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
@@ -208,3 +238,8 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+=======
+  ADD PRIMARY KEY (`id`);
+
+COMMIT;
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e

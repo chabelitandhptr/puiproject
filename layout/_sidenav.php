@@ -14,6 +14,16 @@
       
       <li class="menu-header">Main Feature</li>
 
+<<<<<<< HEAD
+=======
+      <!-- Menu Influencer -->
+      <li>
+        <a href="../influencer/index.php" class="nav-link">
+          <i class="fas fa-user"></i> <span>Influencer</span>
+        </a>
+      </li>
+
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
       <!-- Menu Product -->
       <li>
         <a href="../product/index.php" class="nav-link">
@@ -24,7 +34,11 @@
       <!-- Menu Order List -->
       <li>
         <a href="../product/index.php" class="nav-link">
+<<<<<<< HEAD
           <i class="fas fa-shopping-cart"></i> <span>Transaksi</span>
+=======
+          <i class="fas fa-shopping-cart"></i> <span>Order List</span>
+>>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
         </a>
       </li>
       

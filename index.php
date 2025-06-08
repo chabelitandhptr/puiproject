@@ -1,24 +1,22 @@
 <?php
 session_start();
-<<<<<<< HEAD
 
 if (isset($_SESSION['login'])) {
-    $role = $_SESSION['login']['role']; // Sekarang role sudah tersedia
+    $role = $_SESSION['login']['role']; // Mendapatkan role pengguna dari session
 
+    // Jika role adalah 'influencer', arahkan ke halaman influencer
     if ($role === 'influencer') {
         header('Location: influencer/index.php');
-    } elseif ($role === 'brand') {
-        header('Location: dashboard/umkm/index.php');
-    } else {
-        header('Location: dashboard/index.php');
+    }
+    // Jika role adalah 'umkm', arahkan ke dashboard UMKM
+    elseif ($role === 'umkm') {
+        header('Location: dashboard/index.php'); // Pastikan file ini ada
+    }
+    // Jika role lain (misalnya admin), arahkan ke dashboard umum atau halaman lain
+    else {
+        header('Location: dashboard/index.php'); // Atau bisa ditujukan ke halaman admin
     }
 } else {
+    // Jika belum login, arahkan ke halaman login
     header('Location: login.php');
 }
-=======
-if(isset($_SESSION['login'])){
-  header('Location: dashboard/index.php');
-}else{
-  header('Location: ./login.php');
-}
->>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e

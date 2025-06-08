@@ -2,7 +2,7 @@
 $host = "localhost"; // Sesuaikan dengan server database
 $user = "root";      // Sesuaikan dengan username database
 $pass = "";          // Sesuaikan dengan password database (jika ada)
-$db   = "collabnest"; // Sesuaikan dengan nama database
+$db   = "collabnest2"; // Sesuaikan dengan nama database
 
 $connection = mysqli_connect($host, $user, $pass, $db);
 

@@ -6,7 +6,6 @@ if (isset($_POST['submit'])) {
     $username = mysqli_real_escape_string($connection, $_POST['username']);
     $password = $_POST['password'];
 
-<<<<<<< HEAD
     // Ambil user dan rolenya
     $sql = "SELECT login.*, users.role 
             FROM login 
@@ -18,7 +17,7 @@ if (isset($_POST['submit'])) {
     $row = mysqli_fetch_assoc($result);
 
     if ($row && password_verify($password, $row['password'])) {
-        $allowed_roles = ['influencer', 'brand']; // Role yang diizinkan
+        $allowed_roles = ['influencer', 'umkm']; // Role yang diizinkan
         if (in_array($row['role'], $allowed_roles)) {
             $_SESSION['login'] = $row;
             header('Location: index.php');
@@ -26,18 +25,6 @@ if (isset($_POST['submit'])) {
         } else {
             echo "<script>alert('Login gagal! Role tidak diizinkan untuk login.'); window.location='login.php';</script>";
         }
-=======
-    // Ambil data user berdasarkan username
-    $sql = "SELECT * FROM login WHERE username='$username' LIMIT 1";
-    $result = mysqli_query($connection, $sql);
-    $row = mysqli_fetch_assoc($result);
-
-    // Cek apakah username ditemukan dan password cocok
-    if ($row && password_verify($password, $row['password'])) {
-        $_SESSION['login'] = $row; // Simpan data user ke session
-        header('Location: index.php');
-        exit(); // Penting agar tidak ada kode lain yang dieksekusi
->>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
     } else {
         echo "<script>alert('Login gagal! Username atau password salah.'); window.location='login.php';</script>";
     }
@@ -45,11 +32,8 @@ if (isset($_POST['submit'])) {
 ?>
 
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 188c392f357ca7fe800f838dc63cf92ef02bd99e
 <!DOCTYPE html>
 <html lang="en">
 

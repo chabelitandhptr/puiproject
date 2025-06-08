@@ -45,31 +45,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
 <section class="section">
-    <div class="section-header">
-        <h1>Add Product</h1>
-    </div>
-    
+  <div class="section-header">
+    <h1>Produk</h1>
+  </div>
+
     <div class="container">
-        <form action="add_product.php" method="POST" enctype="multipart/form-data">
+        <form action="add_product.php" method="POST" enctype="multipart/form-data" class="bg-light p-4 rounded-3 shadow-sm">
             <div class="mb-3">
-                <label for="name" class="form-label">Product Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <label for="name" class="form-label">Nama Produk</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama produk" required>
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" required></textarea>
+                <label for="description" class="form-label">Deskripsi Produk</label>
+                <textarea class="form-control" id="description" name="description" placeholder="Deskripsi singkat produk" rows="4" required></textarea>
             </div>
             <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
-                <input type="number" class="form-control" id="price" name="price" required>
+                <label for="price" class="form-label">Harga Produk</label>
+                <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan harga produk" required>
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Product Image</label>
-                <input type="file" class="form-control" id="image" name="image" required>
+                <label for="image" class="form-label">Gambar Produk</label>
+                <input type="file" class="form-control" id="image" name="image" accept=".jpg,.jpeg,.png" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Tambah Produk</button>
         </form>
     </div>
 </section>

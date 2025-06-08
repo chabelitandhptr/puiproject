@@ -7,6 +7,8 @@ if (isset($_POST['submit'])) {
     $email = mysqli_real_escape_string($connection, $_POST['email']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $role = mysqli_real_escape_string($connection, $_POST['role']);
+var_dump($role); // Menampilkan nilai role
+
 
     // 🔹 Cek apakah username sudah digunakan
     $check_query = "SELECT id FROM users WHERE username='$username'";
@@ -33,39 +35,49 @@ if (isset($_POST['submit'])) {
     $result_users = mysqli_query($connection, $query_users);
 
     if ($result_users) {
-        $user_id = mysqli_insert_id($connection); // ✅ Ambil ID terakhir dari users
+        $user_id = mysqli_insert_id($connection);
 
-        // 🔹 Insert ke tabel login (Pastikan FK benar: `user_id`)
+        // 🔹 Insert ke tabel login
         $query_login = "INSERT INTO login (user_id, username, password) VALUES ('$user_id', '$username', '$password')";
         $result_login = mysqli_query($connection, $query_login);
 
-        // 🔹 Jika role influencer, tambahkan ke tabel influencers
+        // 🔹 Jika role influencer, insert ke tabel influencers
         if ($role === 'influencer') {
-            $query_influencer = "INSERT INTO influencers (id, username) VALUES ('$user_id', '$username')";
-            $result_influencer = mysqli_query($connection, $query_influencer);
-
-            if (!$result_influencer) {
-                $_SESSION['error'] = "Registrasi gagal! (Error saat menyimpan data influencer)";
-                header("Location: register.php");
-                exit();
-            }
-        }
+          $query_influencer = "INSERT INTO influencers (id, username, email) VALUES ('$user_id', '$username', '$email')";
+          $result_influencer = mysqli_query($connection, $query_influencer);
+      
+          if (!$result_influencer) {
+              $_SESSION['error'] = "Registrasi gagal! (Gagal menyimpan data influencer)";
+              // Hapus data yang sudah dimasukkan agar konsisten
+              mysqli_query($connection, "DELETE FROM login WHERE user_id='$user_id'");
+              mysqli_query($connection, "DELETE FROM users WHERE id='$user_id'");
+              header("Location: register.php");
+              exit();
+          }
+      }
+      
 
         if ($result_login) {
             $_SESSION['success'] = "Registrasi berhasil! Silakan login.";
             header("Location: login.php");
             exit();
         } else {
-            $_SESSION['error'] = "Registrasi gagal! (Error saat menyimpan login)";
+            // Rollback jika gagal menyimpan login
+            mysqli_query($connection, "DELETE FROM users WHERE id='$user_id'");
+            if ($role === 'influencer') {
+                mysqli_query($connection, "DELETE FROM influencers WHERE id='$user_id'");
+            }
+            $_SESSION['error'] = "Registrasi gagal! (Gagal menyimpan data login)";
         }
     } else {
-        $_SESSION['error'] = "Registrasi gagal! (Error saat menyimpan user)";
+        $_SESSION['error'] = "Registrasi gagal! (Gagal menyimpan data user)";
     }
 
     header("Location: register.php");
     exit();
 }
 ?>
+
 
 
 
@@ -152,7 +164,7 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label for="role">Role</label>
                     <select id="role" name="role" class="form-control" required>
-                      <option value="umkm">UMKM</option>
+                      <option value="umkm">Umkm</option>
                       <option value="influencer">Influencer</option>
                     </select>
                     <div class="invalid-feedback">

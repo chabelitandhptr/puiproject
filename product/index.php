@@ -14,25 +14,25 @@ if (!$result) {
 
 <section class="section">
   <div class="section-header">
-    <h1>Campaign</h1>
+    <h1>Daftar Produk</h1>
   </div>
 
   <div class="container">
     <div class="row justify-content-center g-4">
       
       <!-- Tombol tambah produk -->
-      <div class="col-md-3 d-flex justify-content-center">
-        <a href="add_product.php" class="add-product-box">
-          <h1>+</h1>
-          <p>Add a product</p>
+      <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+        <a href="add_product.php" class="add-product-box shadow">
+          <h1 class="display-4">+</h1>
+          <p class="mt-2">Tambah Produk</p>
         </a>
       </div>
 
       <!-- Menampilkan daftar produk -->
       <?php if ($result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
-          <div class="col-md-3 d-flex justify-content-center">
-            <div class="card product-card shadow-sm">
+          <div class="col-md-4 col-sm-6 d-flex justify-content-center">
+            <div class="card product-card shadow-sm border-0 rounded-3">
               <?php
                 $image_path = "../assets/img/products/" . htmlspecialchars($row['image']);
                 if (!file_exists($image_path) || empty($row['image'])) {
@@ -43,13 +43,13 @@ if (!$result) {
               <div class="card-body text-center">
                 <h5 class="card-title"><?php echo htmlspecialchars($row['name']); ?></h5>
                 <p class="card-text text-muted"><?php echo htmlspecialchars($row['description']); ?></p>
-                <a href="choose_influencer.php?product_id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Pilih</a>
+                <a href="choose_influencer.php?product_id=<?php echo $row['id']; ?>" class="btn btn-success btn-sm rounded-3">Pilih</a>
               </div>
             </div>
           </div>
         <?php endwhile; ?>
       <?php else: ?>
-        <p class="text-center">Belum ada produk.</p>
+        <p class="text-center text-muted">Belum ada produk.</p>
       <?php endif; ?>
     </div>
   </div>
@@ -57,53 +57,76 @@ if (!$result) {
 
 <!-- Styling -->
 <style>
-  .add-product-box, .product-card {
-    width: 200px;
-    height: 230px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-  }
-
   .add-product-box {
-    border: 2px dashed #ccc;
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
     background-color: #f8f9fa;
     text-decoration: none;
-    color: black;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
 
   .add-product-box:hover {
-    background-color: #e0e0e0;
-    border-color: #007bff;
+    background-color: #007bff;
+    color: #fff;
+    transform: translateY(-5px);
+  }
+
+  .add-product-box h1 {
+    font-size: 4rem;
+    margin: 0;
+  }
+
+  .add-product-box p {
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   .product-card {
+    width: 100%;
+    border-radius: 10px;
     overflow: hidden;
-    width: 200px; /* Sesuaikan dengan kotak tambah */
-    height: 230px; /* Sesuaikan dengan kotak tambah */
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.1);
   }
 
   .product-img {
     width: 100%;
-    height: 140px;
+    height: 180px;
     object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
   }
 
   .card-body {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 1rem;
   }
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
   }
 </style>
 

@@ -13,7 +13,7 @@
       <li><a class="nav-link" href="../influencer/index.php"><i class="fas fa-fire"></i> <span>Home</span></a></li>
 
       <li>
-        <a href="../influencer/pages/profil.php" class="nav-link">
+        <a href="../influencer/profil.php" class="nav-link">
           <i class="fas fa-shopping-cart"></i> <span>profil</span>
         </a>
       </li>
@@ -25,8 +25,14 @@
       </li>
 
       <li>
-        <a href="../product/index.php" class="nav-link">
+        <a href="../influencer/transaksi.php" class="nav-link">
           <i class="fas fa-shopping-cart"></i> <span>Transaksi</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="../influencer/jasa.php" class="nav-link">
+          <i class="fas fa-shopping-cart"></i> <span>jasa</span>
         </a>
       </li>
     </ul>

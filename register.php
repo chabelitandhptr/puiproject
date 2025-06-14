@@ -90,108 +90,185 @@ var_dump($role); // Menampilkan nilai role
   <title>Register &mdash; CollabNest</title>
 
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
+
+  <style>
+    /* Styling for the background and layout */
+    body {
+      background-color: #F8F9FA;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Container for the register layout */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    /* Logo */
+    .login-brand {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-brand img {
+      width: 100%;
+      max-width: 250px;
+    }
+
+    /* Right side register form */
+    .login-form {
+      width: 100%;
+    }
+
+    .card-header {
+      background-color: #F8F9FA;
+      border-bottom: 1px solid #E9ECEF;
+    }
+
+    .btn-primary {
+      background-color: #FF4F5A; /* Color to match the branding */
+      border-color: #FF4F5A;
+    }
+
+    .btn-primary:hover {
+      background-color: #FF3B45;
+      border-color: #FF3B45;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .simple-footer {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    /* Styling for signup link */
+    .text-center p {
+      font-size: 14px;
+    }
+
+    .text-center a {
+      color: #FF4F5A;
+    }
+
+    /* Styling for the form controls */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+  </style>
+
 </head>
 
 <body>
-  <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="login-brand">
-              <img src="https://ids.ac.id/wp-content/uploads/2019/11/Logo-IDS-College.png" alt="logo" width="300">
+  <div class="login-container">
+    <!-- Right side register form -->
+    <div class="login-form">
+      <!-- Logo at the top -->
+      <div class="login-brand">
+        <img src="assets/img/logo.png" alt="logo">
+      </div>
+
+      <div class="card card-primary">
+        <div class="card-header">
+          <h4>Register</h4>
+        </div>
+
+        <div class="card-body">
+
+          <!-- 🔹 Tampilkan Notifikasi -->
+          <?php if (isset($_SESSION['success'])) : ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <?= $_SESSION['success']; ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+            <?php unset($_SESSION['success']); ?>
+          <?php endif; ?>
 
-            <div class="card card-primary">
-              <div class="card-header">
-                <h4>Register</h4>
-              </div>
+          <?php if (isset($_SESSION['error'])) : ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <?= $_SESSION['error']; ?>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <?php unset($_SESSION['error']); ?>
+          <?php endif; ?>
 
-              <div class="card-body">
-
-                <!-- 🔹 Tampilkan Notifikasi -->
-                <?php if (isset($_SESSION['success'])) : ?>
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= $_SESSION['success']; ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <?php unset($_SESSION['success']); ?>
-                <?php endif; ?>
-
-                <?php if (isset($_SESSION['error'])) : ?>
-                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <?= $_SESSION['error']; ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <?php unset($_SESSION['error']); ?>
-                <?php endif; ?>
-
-                <form method="POST" action="" class="needs-validation" novalidate="">
-                  <div class="form-group">
-                    <label for="username">Username</label>
-                    <input id="username" type="text" class="form-control" name="username" required autofocus>
-                    <div class="invalid-feedback">
-                      Mohon isi username
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" required>
-                    <div class="invalid-feedback">
-                      Mohon isi email yang valid
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" class="form-control" name="password" required>
-                    <div class="invalid-feedback">
-                      Mohon isi kata sandi
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="role">Role</label>
-                    <select id="role" name="role" class="form-control" required>
-                      <option value="umkm">Umkm</option>
-                      <option value="influencer">Influencer</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Mohon pilih role
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <button name="submit" type="submit" class="btn btn-primary btn-lg btn-block">
-                      Register
-                    </button>
-                  </div>
-                </form>
-
-                <div class="text-center">
-                  <p>Sudah punya akun? <a href="login.php">Login di sini</a></p>
-                </div>
+          <form method="POST" action="" class="needs-validation" novalidate="">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input id="username" type="text" class="form-control" name="username" required autofocus>
+              <div class="invalid-feedback">
+                Mohon isi username
               </div>
             </div>
 
-            <div class="simple-footer">
-              Copyright &copy; CollabNest 2025
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" type="email" class="form-control" name="email" required>
+              <div class="invalid-feedback">
+                Mohon isi email yang valid
+              </div>
             </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input id="password" type="password" class="form-control" name="password" required>
+              <div class="invalid-feedback">
+                Mohon isi kata sandi
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="role">Role</label>
+              <select id="role" name="role" class="form-control" required>
+                <option value="umkm">Umkm</option>
+                <option value="influencer">Influencer</option>
+              </select>
+              <div class="invalid-feedback">
+                Mohon pilih role
+              </div>
+            </div>
+
+            <div class="form-group">
+              <button name="submit" type="submit" class="btn btn-primary btn-lg btn-block">
+                Register
+              </button>
+            </div>
+          </form>
+
+          <div class="text-center">
+            <p>Sudah punya akun? <a href="login.php">Login di sini</a></p>
           </div>
         </div>
       </div>
-    </section>
+
+      <div class="simple-footer">
+        Copyright &copy; CollabNest 2025
+      </div>
+    </div>
   </div>
 
   <!-- General JS Scripts -->
@@ -199,8 +276,7 @@ var_dump($role); // Menampilkan nilai role
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="assets/js/stisla.js"></script>
-
-  <!-- Page Specific JS File -->
+  <script src="assets/js/scripts.js"></script>
 </body>
 
 </html>

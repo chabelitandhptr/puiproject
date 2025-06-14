@@ -1,7 +1,7 @@
 <?php 
-require_once '../helper/connection.php'; // Taruh di awal (tidak mengeluarkan HTML)
+require_once '../helper/connection.php'; 
 
-// Tangani POST
+ 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $promoted_item = mysqli_real_escape_string($connection, $_POST['promoted_item']);
     $details = mysqli_real_escape_string($connection, $_POST['details']);
@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (mysqli_query($connection, $query)) {
             $endorsement_id = mysqli_insert_id($connection);
-            // Langsung redirect ke halaman pembayaran tanpa notifikasi alert
             header("Location: payment_info.php?endorsement_id={$endorsement_id}");
             exit();
         } else {
@@ -55,10 +54,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Setelah semua proses insert
+
 require_once '../layout/_top.php';
 
-// Dapatkan data influencer dan jasa
+
 $influencer_id = isset($_GET['influencer_id']) ? $_GET['influencer_id'] : null;
 
 if ($influencer_id) {

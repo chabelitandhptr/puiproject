@@ -3,7 +3,7 @@ require_once '../layout/_top.php';
 require_once '../helper/connection.php'; // Koneksi ke database
 
 // Ambil data transaksi yang sudah disimpan
-$query = "SELECT t.id, t.endorsement_id, t.service, t.price, t.payment_image, t.status, t.created_at, i.full_name, i.username 
+$query = "SELECT t.id, t.endorsement_id, t.service, t.price, t.payment_image, t.status, t.created_at, i.full_name, i.username, t.link_post, t.proof_image
           FROM transactions t 
           JOIN influencers i ON t.influencer_id = i.id
           ORDER BY t.created_at DESC"; // Ambil transaksi terakhir
@@ -21,8 +21,6 @@ $result = $connection->query($query);
         <div class="col-lg-12">
           <div class="card border-0 shadow rounded-4">
             <div class="card-body p-4">
-
-
               <!-- Tabel Daftar Transaksi -->
               <table class="table table-striped table-bordered">
                 <thead>
@@ -61,7 +59,7 @@ $result = $connection->query($query);
                               <td>{$status_label}</td>
                               <td>" . date('d M Y H:i', strtotime($transaction['created_at'])) . "</td>
                               <td>
-                                <a href='view_transaction.php?transaction_id={$transaction['id']}' class='btn btn-info btn-sm'>Detail</a>
+                                <button class='btn btn-info btn-sm open-details' data-link-post='{$transaction['link_post']}' data-proof-image='{$transaction['proof_image']}'>Detail</button>
                               </td>
                             </tr>";
                       $counter++;
@@ -80,4 +78,77 @@ $result = $connection->query($query);
   </div>
 </section>
 
+<!-- Notifikasi Melayang (Popup) -->
+<div id="notificationPopup" class="popup-form">
+  <div class="popup-content">
+    <span class="close-popup">&times;</span>
+    <h5>Detail Transaksi</h5>
+    <p><strong>Link Postingan:</strong> <span id="linkPostDetail"></span></p>
+    <p><strong>Bukti Foto Postingan:</strong> <br><img id="proofImageDetail" src="" alt="Proof Image" style="max-width: 100%; max-height: 200px;"/></p>
+  </div>
+</div>
+
 <?php require_once '../layout/_bottom.php'; ?>
+
+<!-- CSS for Popup -->
+<style>
+  .popup-form {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .popup-content {
+    position: relative;
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+  }
+
+  .close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+
+<!-- JavaScript for Handling Popup -->
+<script>
+  // Open the popup when clicking on the "Detail" button
+  document.querySelectorAll('.open-details').forEach(item => {
+    item.addEventListener('click', function() {
+      const linkPost = item.getAttribute('data-link-post');
+      const proofImage = item.getAttribute('data-proof-image');
+      
+      // Set the content of the popup
+      document.getElementById('linkPostDetail').textContent = linkPost;
+      document.getElementById('proofImageDetail').src = proofImage;
+
+      // Show the popup
+      document.getElementById('notificationPopup').style.display = 'block';
+    });
+  });
+
+  // Close the popup when clicking on the close button
+  document.querySelector('.close-popup').addEventListener('click', () => {
+    document.getElementById('notificationPopup').style.display = 'none';
+  });
+
+  // Close the popup when clicking outside of the popup content
+  window.onclick = function(event) {
+    if (event.target === document.getElementById('notificationPopup')) {
+      document.getElementById('notificationPopup').style.display = 'none';
+    }
+  }
+</script>

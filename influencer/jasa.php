@@ -31,16 +31,20 @@ $stmt->execute();
 $result = $stmt->get_result();
 ?>
 
-<!-- Container -->
-<div class="container mt-5">
-    <h2 class="mb-4">Rate Card Saya</h2>
+<section class="section">
+  <div class="section-header">
+    <h1>Jasa</h1>
+  </div>
 
     <?php if ($success): ?>
-        <div class="alert alert-success">Data berhasil disimpan.</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data berhasil disimpan.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     <?php endif; ?>
 
     <!-- Form Input -->
-    <div class="card mb-4 shadow-sm">
+    <div class="card mb-4 shadow-sm border-light">
         <div class="card-body">
             <form method="post" class="row g-3">
                 <div class="col-md-6">
@@ -66,7 +70,7 @@ $result = $stmt->get_result();
     </div>
 
     <!-- Tabel Data -->
-    <h4 class="mb-3">Daftar Rate Card</h4>
+    <h4 class="mb-3 text-center">Daftar Rate Card</h4>
     <div class="table-responsive">
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-dark">

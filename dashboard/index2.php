@@ -8,6 +8,9 @@ $result = $connection->query($sql);
 ?>
 
 <section class="section">
+  <div class="section-header">
+    <h1>Dashboard</h1>
+  </div>
   <div class="section-body">
     <div class="row mb-4">
       <div class="col-md-6">
@@ -43,7 +46,7 @@ $result = $connection->query($sql);
 
       <?php while ($row = $result->fetch_assoc()) : ?>
         <div class="col-md-4 col-lg-3 mb-4">
-          <div class="card influencer-card shadow-sm border-0 rounded-lg overflow-hidden">
+          <a href="detail_influencer.php?influencer_id=<?= $row['id'] ?>" class="card influencer-card shadow-sm border-0 rounded-lg overflow-hidden text-decoration-none">
             <!-- Gambar Profil -->
             <div class="position-relative">
               <img src="<?= !empty($row['profile_image']) 
@@ -55,7 +58,7 @@ $result = $connection->query($sql);
             <div class="card-body text-center">
               <!-- Nama dan Username Influencer -->
               <h5 class="card-title"><?= htmlspecialchars($row['full_name']) ?></h5>
-              <div class="text-muted small">@<?= htmlspecialchars($row['username']) ?></div>
+              
 
               <!-- Instagram dan Lokasi -->
               <?php if (!empty($row['instagram'])): ?>
@@ -82,11 +85,6 @@ $result = $connection->query($sql);
                 </div>
               <?php endif; ?>
 
-              <!-- Tombol Lihat Rate Card dan Testimonial -->
-              <p>
-                <a href="javascript:void(0);" onclick="showRateCard('<?= $row['username'] ?>');" class="text-info text-decoration-none">📩 Lihat Rate Card</a>
-              </p>
-
               <!-- Testimonial -->
               <div class="testimonial-box d-flex align-items-center mt-3">
                 <div class="testimonial-avatar">SA</div>
@@ -95,19 +93,14 @@ $result = $connection->query($sql);
                   <small class="text-muted">fast response, ramah dan sesuai brief.</small>
                 </div>
               </div>
-
-              <!-- Tombol Endorse dan Kirim Pesan -->
-              <div class="d-grid gap-2 mt-3">
-                <a href="../transaksi1/endorsment.php?influencer_id=<?= $row['id'] ?>" class="btn btn-success btn-sm">Endorse</a>
-                <a href="../pesan/sentMessage.php?influencer_id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">Kirim Pesan</a>
-              </div>
             </div>
-          </div>
+          </a>
         </div>
       <?php endwhile; ?>
     </div>
   </div>
 </section>
+
 
 <!-- Modal Rate Card -->
 <div class="modal fade" id="rateCardModal" tabindex="-1" role="dialog" aria-labelledby="rateCardModalLabel" aria-hidden="true">
@@ -139,11 +132,6 @@ function showRateCard(username) {
 </script>
 
 <style>
-/* Menambah jarak antara navbar dan konten */
-
-.section {
-  margin-top: 80px;
-}
 
 /* Style card influencer */
 .influencer-card {
